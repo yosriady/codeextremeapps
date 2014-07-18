@@ -2,7 +2,7 @@ var RUM = RUM || {};
 RUM.Home = (function(window, document, $, _) {
 
     var CHART_ID = "event-chart";
-    var TRACKING_URL = "https://rum.firebaseio.com/tracking";
+    var TRACKING_URL = "https://rum.firebaseio.com/events";
     var DELAY = 100;
     var TIME_INTERVAL = 1000;
 
