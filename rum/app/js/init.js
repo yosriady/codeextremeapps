@@ -375,3 +375,5 @@ jQuery(function() {
                         }
             }
 });
+
+RUM.Home.init();
