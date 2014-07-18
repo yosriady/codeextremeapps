@@ -68,6 +68,11 @@ RUM.Map = (function(window, document, $, _) {
         $(notice).appendTo("#notifications").toggle("show");
     }
 
+    function addToCarousel(latlng, datetime, imageurl){
+        var carousel_item = '<article class><a href="' + imageurl + '" class="image featured"><img src="' + imageurl + '" alt="" /></a><header><h3>' + datetime + '</h3></header><p>' + latlng + '</p></article>';
+        $(carousel_item).appendTo(".carousel .reel").show();
+    }
+
     setTimeout(function(){
         setupMap();
     },1000);
@@ -95,6 +100,10 @@ RUM.Map = (function(window, document, $, _) {
                     var datetime = moment.unix(newData.timestamp).format('YYYY-MM-DD HH:mm:ss');
                     RUM.Map.addMarker(svy, newData);
                     RUM.Map.addNotice(newData.type, latlng, datetime);
+
+                    if (newData.type == "camera"){
+                        RUM.Map.addToCarousel(latlng, datetime, newData["image-url"]);
+                    }
                 }
             });
         });
@@ -110,6 +119,7 @@ RUM.Map = (function(window, document, $, _) {
         clearMarkers: clearMarkers,
         addMarker: addMarker,
         addNotice: addNotice,
+        addToCarousel: addToCarousel,
         listen: listen
     }
     return MAP;
