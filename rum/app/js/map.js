@@ -64,6 +64,11 @@ RUM.Map = (function(window, document, $, _) {
     }
 
     function addNotice(alert_type, address, time){
+        var not_empty = ($("#notifications").length > 0);
+        if(not_empty){
+            $("#notifications #empty-sidebar-notice").remove();
+        }
+
         var notice = '<li><span><h4>' + capitaliseFirstLetter(alert_type) + ' Alert</h4><p>' + address + '</p><em><i class="fa fa-clock-o"></i> ' + time + '</em></span></li>';
         $(notice).appendTo("#notifications").toggle("show");
     }

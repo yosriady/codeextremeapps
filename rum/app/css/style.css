@@ -1072,7 +1072,8 @@
 			.homepage #header .overlay
 			{
 				content: '';
-				background: #1C0920;
+				/*background: #1C0920;*/
+				background: url(http://subtlepatterns.com/patterns/moulin.png);
 				display: block;
 				position: absolute;
 				left: 0;
@@ -1657,4 +1658,17 @@
 			#event-chart {
 				margin-bottom: -60px;
 
+			}
+
+			.carousel {
+				background: url(http://subtlepatterns.com/patterns/congruent_pentagon.png);
+			}
+
+			#notifications #empty-sidebar-notice {
+				display: block;
+				padding: 20px;
+				font-weight: bold;
+				font-size: 24px;
+				text-align: center;
+				background: none;
 			}
