@@ -4,7 +4,7 @@ RUM.Home = (function(window, document, $, _) {
     var CHART_ID = "event-chart";
     var TRACKING_URL = "https://rum.firebaseio.com/tracking";
     var DELAY = 100;
-    var FETCH_TIME = 1000;
+    var TIME_INTERVAL = 1000;
 
     var trackingRef = new window.Firebase(TRACKING_URL);
     var eventCount = 0;
@@ -21,7 +21,7 @@ RUM.Home = (function(window, document, $, _) {
             trackingRef.on('child_added', function(snapshot) {
                 var newData = snapshot.val();
                 if (_.indexOf(oldTimeStamps, newData.timestamp) === -1) {
-                    eventCount = newData.events.length;
+                    eventCount++;
                 }
             });
         });
@@ -34,7 +34,7 @@ RUM.Home = (function(window, document, $, _) {
         setInterval(function() {
             timeLine.append(new Date().getTime(), eventCount);
             eventCount = 0;
-        }, FETCH_TIME);
+        }, TIME_INTERVAL);
 
         smoothie.addTimeSeries(timeLine, {lineWidth:3,strokeStyle:'#00ff00'});
 
