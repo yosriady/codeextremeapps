@@ -1586,10 +1586,9 @@
 			}
 
 			#map, #sidebar {
-				height: 500px;
+				height: 600px;
 				overflow-y: scroll;
 				float:right;
-
 			}
 
 			#notifications li {
@@ -1630,4 +1629,15 @@
 				margin: 5px;
 				margin-right: 10px;
 				padding: 3px 3px 3px 5px;
+			}
+
+
+			h2 {
+				color: #df7366;
+				font-weight: bold;
+				font-size: 28px;
+			}
+
+			.clear {
+			    clear:both;
 			}
