@@ -25,31 +25,31 @@ RUM.Map = (function(window, document, $, _) {
         });
     }
 
-    function generatePointGraphic(XY) {
-        var ICON_PATH = "http://t1.onemap.sg/icons/MUSEUM/"
-        var ICON_NAME = "mr.gif"
+    function generateMarker(XY) {
         var coords = new Array();
         coords = XY.split(",")
         var xCord = coords[0]
         var yCord = coords[1]
-        var iconURL = ICON_PATH + ICON_NAME
-        if (iconURL != "") {
-            iconURL = iconURL.replace("www.onemap.sg", "www.onemap.sg")
-            var thmSymbol = new esri.symbol.PictureMarkerSymbol(iconURL, 20, 20)
-        }
+        var iconURL = "http://i.imgur.com/RfIGKsI.gif";
+        var thmSymbol = new esri.symbol.PictureMarkerSymbol(iconURL, 40, 40)
         var PointLocation = new esri.geometry.Point(xCord, yCord, new esri.SpatialReference({ wkid: 3414 }))
         var PointGraphic = new esri.Graphic(PointLocation, thmSymbol);
         return PointGraphic
     }
 
     function addMarker(svy, json_data){
-      var marker = generatePointGraphic(svy);
+      var marker = generateMarker(svy);
       marker.attributes = json_data;
       themeGraphicsLayer.add(marker);
     }
 
     function clearMarkers(){
       themeGraphicsLayer.clear();
+    }
+
+    function addNotice(alert_type, address, time){
+        var notice = '<li><span><h4>' + alert_type + ' Alert</h4><p>' + address + '</p><em><i class="fa fa-clock-o"></i>' + time + '</em></span></li>';
+        $(notice).appendTo("#notifications").toggle("show");
     }
 
     setTimeout(function(){
@@ -59,7 +59,8 @@ RUM.Map = (function(window, document, $, _) {
     var MAP = {
         oneMap: OneMap,
         clearMarkers: clearMarkers,
-        addMarker: addMarker
+        addMarker: addMarker,
+        addNotice: addNotice
     }
     return MAP;
 
