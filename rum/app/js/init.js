@@ -377,6 +377,9 @@ jQuery(function() {
 });
 
 RUM.Home.init();
-RUM.Map.listen();
+
+if (RUM.Map){
+    RUM.Map.listen();
+}
 
 // TODO: RUM.Map.listen
