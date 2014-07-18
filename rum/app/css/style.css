@@ -1641,3 +1641,20 @@
 			.clear {
 			    clear:both;
 			}
+
+			.monitor-label {
+				position: relative;
+				bottom: 30px;
+				left: 100px;
+				background: rgba(255,255,255 0.9);
+				color: #fff;
+				opacity: 0.4;
+				font-size: 36px;
+				padding: 5px;
+				width: 300px;
+			}
+
+			#event-chart {
+				margin-bottom: -60px;
+
+			}
