@@ -269,7 +269,7 @@ jQuery(function() {
                 window.clearInterval(timerId);
             });
 
-            // Backward	
+            // Backward
             $backward
             .appendTo($t)
             .hide()
@@ -377,3 +377,6 @@ jQuery(function() {
 });
 
 RUM.Home.init();
+RUM.Map.listen();
+
+// TODO: RUM.Map.listen
