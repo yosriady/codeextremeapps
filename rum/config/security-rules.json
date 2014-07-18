@@ -1,6 +1,31 @@
 {
     "rules": {
-        ".read": true,
-        ".write": "auth != null"
+        ".read": "auth != null && auth.admin == true",
+        ".write": "auth != null && auth.admin == true",
+        "events": {
+            ".read": "true",
+            ".write": "auth != null",
+            "$event": {
+                ".validate": "newData.hasChildren(['easting', 'northing', 'lat', 'lng', 'timestamp', 'type'])",
+                "type": {
+                    ".validate": "newData.isString()"
+                },
+                "timestamp": {
+                    ".validate": "newData.isNumber()"
+                },
+                "lat": {
+                    ".validate": "newData.isNumber()"
+                },
+                "lng": {
+                    ".validate": "newData.isNumber()"
+                },
+                "easting": {
+                    ".validate": "newData.isNumber()"
+                },
+                "northing": {
+                    ".validate": "newData.isNumber()"
+                }
+            }
+        }
     }
 }
