@@ -15,12 +15,12 @@ RUM.Home = (function(window, document, $, _) {
 
             var oldTimeStamps = [];
             _.each(oldSnap.val(), function(event) {
-                oldTimeStamps.push(event.timestamp);
+                oldTimeStamps.push(event.time);
             });
 
             trackingRef.on('child_added', function(snapshot) {
                 var newData = snapshot.val();
-                if (_.indexOf(oldTimeStamps, newData.timestamp) === -1) {
+                if (_.indexOf(oldTimeStamps, newData.time) === -1) {
                     eventCount++;
                 }
             });

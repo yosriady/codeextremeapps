@@ -19,7 +19,7 @@ RUM.Map = (function(window, document, $, _) {
         {
             console.log("Clicked infowindow");
             var data = evt.graphic.attributes;
-            var datetime = moment.unix(data.timestamp).format('YYYY-MM-DD HH:mm:ss');
+            var datetime = moment.unix(data.time).format('YYYY-MM-DD HH:mm:ss');
             OneMap.map.infoWindow.setTitle(capitaliseFirstLetter(data.type) +" Event ("+ datetime +")");
             var infowindowContent;
             if (data.type == "camera"){
@@ -91,17 +91,17 @@ RUM.Map = (function(window, document, $, _) {
 
             var oldTimeStamps = [];
             _.each(oldSnap.val(), function(event) {
-                oldTimeStamps.push(event.timestamp);
+                oldTimeStamps.push(event.time);
             });
 
             trackingRef.on('child_added', function(snapshot) {
                 var newData = snapshot.val();
-                if (_.indexOf(oldTimeStamps, newData.timestamp) === -1) {
+                if (_.indexOf(oldTimeStamps, newData.time) === -1) {
                     console.log("New DATA!~");
                     console.log(newData);
                     var svy = newData.easting + "," + newData.northing;
                     var latlng = newData.lat + "," + newData.lng;
-                    var datetime = moment.unix(newData.timestamp).format('YYYY-MM-DD HH:mm:ss');
+                    var datetime = moment.unix(newData.time).format('YYYY-MM-DD HH:mm:ss');
                     RUM.Map.addMarker(svy, newData);
                     RUM.Map.addNotice(newData.type, latlng, datetime);
 
