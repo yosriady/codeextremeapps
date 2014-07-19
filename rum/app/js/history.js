@@ -51,7 +51,6 @@ RUM.History = (function(window, document, $, _) {
     }
 
     var HISTORY = {
-        init: init,
         drawChart: drawChart
     };
     return HISTORY;

@@ -30,11 +30,13 @@
                 </header>
                 <footer>
                     <a href="#history" class="button circled scrolly">View</a>
+                    <a href="index.html" class="button circled scrolly">Back</a>
                 </footer>
             </div>
         </div>
         <!-- Main -->
         <div id="visualization" style="width: 800px; height: 400px;"></div>
+        <div id="related" ></div>
 
         <!-- Footer -->
         <div id="footer">
@@ -76,6 +78,7 @@
             var END_TIME = moment().unix();
             var START_TIME = moment().subtract('hours', 2).unix();
             var dataRef = new window.Firebase(DATA_URL);
+            var GRAPH_DATA = []
 
             dataRef.startAt(START_TIME)
                 .endAt(END_TIME)
@@ -89,14 +92,16 @@
               data.addColumn('number', 'Motion');
               data.addColumn('number', 'Camera');
 
+                var id;
                 for (var key in json_data) {
-                  var point = json_data[key];
-                if (point.type == "motion"){
-                    data.addRow([point.time, 1, null])
-                } else if (point.type == "camera"){
-                    data.addRow([point.time, null, 1])
+                    var point = json_data[key];
+                    if (point.type == "motion"){
+                        id = data.addRow([point.time, 1, null])
+                    } else if (point.type == "camera"){
+                        id = data.addRow([point.time, null, 1])
+                    }
+                    GRAPH_DATA[id] = point;
                 }
-            }
 
               // Create and draw the visualization.
               var chart = new google.visualization.ScatterChart(document.getElementById('visualization'));
@@ -105,10 +110,42 @@
                          vAxis: {title: "Events", titleTextStyle: {color: "green"}, textPosition: "none"},
                          hAxis: {title: "Time", titleTextStyle: {color: "green"}}
                  });
+
+                google.visualization.events.addListener(chart, 'select', selectHandler);
+
+                // The selection handler.
+                // Loop through all items in the selection and concatenate
+                // a single message from all of them.
+                function selectHandler() {
+                  var selection = chart.getSelection();
+                  if (selection) {
+                      var selected_event = GRAPH_DATA[selection[0].row];
+                      var selected_timestamp = selected_event.time;
+                      getNearbyEvents(selected_timestamp);
+                  }
+                }
+
+                function getNearbyEvents(timestamp){
+                    var start_time = timestamp - 200;
+                    var end_time = timestamp + 200;
+                    dataRef.startAt(start_time)
+                    .endAt(end_time)
+                    .once('value', function(snap) {
+                        var events = snap.val();
+                        var cameraEvents = _.filter(_.values(events), function(event) {
+                            return event.type == "camera";
+                        });
+                        $("#related").empty();
+                        _.each(cameraEvents, function(event) {
+                            var carousel_item = '<article class><a href="' + event["image-url"] + '" class="image featured"><img src="' + event["image-url"] + '" alt="" /></a><header><h3>' + moment(event.time) + '</h3></header><p>' +  + '</p></article>';
+                            $(carousel_item).appendTo("#related").show();
+                        });
+                    });
+                }
             }
 
 
-          google.setOnLoadCallback(drawVisualization);
+          google.setOnLoadCallback(drawScatterVisualization);
         </script>
     </body>
 </html>
