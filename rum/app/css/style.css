@@ -1680,3 +1680,7 @@
 			#map_infowindow img {
 				width: 400px;
 			}
+
+			#visualization {
+				margin: 0 auto;
+			}

@@ -34,13 +34,6 @@
             </div>
         </div>
         <!-- Main -->
-
-        <div id="history">
-            <div id="pie"></div>
-            <hr/>
-            <div id="scatter"></div>
-        </div>
-
         <div id="visualization" style="width: 800px; height: 400px;"></div>
 
         <!-- Footer -->
@@ -109,9 +102,9 @@
               var chart = new google.visualization.ScatterChart(document.getElementById('visualization'));
               chart.draw(data, {title: 'Number of Events over Time',
                          width: 800, height: 400,
-                         vAxis: {title: "Number of Events", titleTextStyle: {color: "green"}},
-                         hAxis: {title: "Time", titleTextStyle: {color: "green"}}}
-                         );
+                         vAxis: {title: "Events", titleTextStyle: {color: "green"}, textPosition: "none"},
+                         hAxis: {title: "Time", titleTextStyle: {color: "green"}}
+                 });
             }
 
 
