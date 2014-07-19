@@ -26,8 +26,6 @@ RUM.Map = (function(window, document, $, _) {
                 var oImg=document.createElement("img");
                 oImg.setAttribute('src', data["image-url"]);
                 infowindowContent = oImg;
-            } else {
-                infowindowContent = "Value: " + data.value;
             }
 
             OneMap.map.infoWindow.setContent(infowindowContent);
