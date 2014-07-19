@@ -1602,7 +1602,6 @@
 			}
 
 			#notifications h4 {
-				background: #df7366;
 				font-size: 24px;
 				padding: 10px;
 				color: #fff;
@@ -1611,12 +1610,28 @@
 				margin-bottom: 0px;
 			}
 
+			#notifications h4.motion{
+				background: #28B0EB;
+			}
+
+			#notifications h4.camera{
+				background: #df7366;
+			}
+
+			h1 {
+				text-align: center;
+				font-size: 48px;
+				margin: 20px;
+			}
+
+
 			#notifications p {
 				font-size: 18px;
 				padding: 10px;
 				padding-bottom: 0px;
 				display: inline-block;
 				margin-bottom:0px;
+				display: inline;
 			}
 
 			#notifications em {

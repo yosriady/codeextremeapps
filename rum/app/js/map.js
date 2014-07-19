@@ -68,7 +68,17 @@ RUM.Map = (function(window, document, $, _) {
             $("#notifications #empty-sidebar-notice").remove();
         }
 
-        var notice = '<li><span><h4>' + capitaliseFirstLetter(alert_type) + ' Alert</h4><p>' + address + '</p><em><i class="fa fa-clock-o"></i> ' + time + '</em></span></li>';
+        var notice;
+        if (alert_type=="camera"){
+            var notice = "<li><span><h4 class='camera'>" + capitaliseFirstLetter(alert_type) + ' Alert</h4><p>' + address + '</p><em><i class="fa fa-clock-o"></i> ' + time + '</em></span></li>';
+        }
+
+        else if (alert_type=="motion"){
+            var notice = "<li><span><h4 class='motion'>" + capitaliseFirstLetter(alert_type) + ' Alert</h4><p>' + address + '</p><em><i class="fa fa-clock-o"></i> ' + time + '</em></span></li>';
+        } else {
+
+        }
+
         $(notice).appendTo("#notifications").toggle("show");
     }
 
