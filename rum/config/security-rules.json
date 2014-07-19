@@ -6,11 +6,11 @@
             ".read": "true",
             ".write": "auth != null",
             "$event": {
-                ".validate": "newData.hasChildren(['easting', 'northing', 'lat', 'lng', 'timestamp', 'type'])",
+                ".validate": "newData.hasChildren(['easting', 'northing', 'lat', 'lng', 'time', 'type'])",
                 "type": {
                     ".validate": "newData.isString()"
                 },
-                "timestamp": {
+                "time": {
                     ".validate": "newData.isNumber()"
                 },
                 "lat": {
