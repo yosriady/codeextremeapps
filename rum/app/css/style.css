@@ -1684,3 +1684,23 @@
 			#visualization {
 				margin: 0 auto;
 			}
+
+			#related {
+				width: 1200px;
+				margin: 0 auto;
+			}
+
+			#related article {
+				width: 360px;
+				float: left;
+				margin: 20px;
+			}
+
+			#related article img, #related article a.image.featured {
+				margin-bottom: 0px;
+			}
+
+			#related header {
+
+
+			}

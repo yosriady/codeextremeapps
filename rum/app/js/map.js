@@ -19,13 +19,15 @@ RUM.Map = (function(window, document, $, _) {
         {
             console.log("Clicked infowindow");
             var data = evt.graphic.attributes;
-            var datetime = moment.unix(data.time).format('YYYY-MM-DD HH:mm:ss');
+            var datetime = moment.unix(data.time).format('YYYY-MM-DD HH:mm');
             OneMap.map.infoWindow.setTitle(capitaliseFirstLetter(data.type) +" Event ("+ datetime +")");
             var infowindowContent;
             if (data.type == "camera"){
                 var oImg=document.createElement("img");
                 oImg.setAttribute('src', data["image-url"]);
                 infowindowContent = oImg;
+            } else {
+                infowindowContent = "Movement detected!";
             }
 
             OneMap.map.infoWindow.setContent(infowindowContent);
@@ -99,7 +101,7 @@ RUM.Map = (function(window, document, $, _) {
                     console.log(newData);
                     var svy = newData.easting + "," + newData.northing;
                     var latlng = newData.lat + "," + newData.lng;
-                    var datetime = moment.unix(newData.time).format('YYYY-MM-DD HH:mm:ss');
+                    var datetime = moment.unix(newData.time).format('YYYY-MM-DD HH:mm');
                     RUM.Map.addMarker(svy, newData);
                     RUM.Map.addNotice(newData.type, latlng, datetime);
 

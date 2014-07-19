@@ -29,7 +29,7 @@
                     <hr/>
                 </header>
                 <footer>
-                    <a href="#history" class="button circled scrolly">View</a>
+                    <a href="#visualization" class="button circled scrolly">View</a>
                     <a href="index.html" class="button circled scrolly">Back</a>
                 </footer>
             </div>
@@ -38,6 +38,7 @@
         <div id="visualization" style="width: 800px; height: 400px;"></div>
         <div id="related" ></div>
 
+        <div class="clear"></div>
         <!-- Footer -->
         <div id="footer">
             <div class="container">
@@ -95,12 +96,14 @@
                 var id;
                 for (var key in json_data) {
                     var point = json_data[key];
-                    if (point.type == "motion"){
-                        id = data.addRow([point.time, 1, null])
-                    } else if (point.type == "camera"){
-                        id = data.addRow([point.time, null, 1])
+                    if (point.type){
+                        if (point.type == "motion"){
+                            id = data.addRow([point.time, 1, null])
+                        } else if (point.type == "camera"){
+                            id = data.addRow([point.time, null, 1.2])
+                        }
+                        GRAPH_DATA[id] = point;
                     }
-                    GRAPH_DATA[id] = point;
                 }
 
               // Create and draw the visualization.
@@ -137,7 +140,7 @@
                         });
                         $("#related").empty();
                         _.each(cameraEvents, function(event) {
-                            var carousel_item = '<article class><a href="' + event["image-url"] + '" class="image featured"><img src="' + event["image-url"] + '" alt="" /></a><header><h3>' + moment(event.time) + '</h3></header><p>' +  + '</p></article>';
+                            var carousel_item = '<article class><a href="' + event["image-url"] + '" class="image featured"><img src="' + event["image-url"] + '" alt="" /></a><header><h3>' + moment.unix(event.time).format('YYYY-MM-DD HH:mm') + '</h3></header><p>' +  + '</p></article>';
                             $(carousel_item).appendTo("#related").show();
                         });
                     });
