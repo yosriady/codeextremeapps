@@ -35,6 +35,7 @@
         </div>
         <!-- Main -->
         <div id="visualization" style="width: 800px; height: 400px;"></div>
+        <div id="related" ></div>
 
         <!-- Footer -->
         <div id="footer">
@@ -116,33 +117,34 @@
                 // a single message from all of them.
                 function selectHandler() {
                   var selection = chart.getSelection();
-                  var selected_event = GRAPH_DATA[selection[0].row];
-                  var selected_timestamp = selected_event.time;
-                  console.log(selected_timestamp);
-                  getNearbyEvents(selected_timestamp);
+                  if (selection) {
+                      var selected_event = GRAPH_DATA[selection[0].row];
+                      var selected_timestamp = selected_event.time;
+                      getNearbyEvents(selected_timestamp);
+                  }
                 }
 
                 function getNearbyEvents(timestamp){
                     var start_time = timestamp - 200;
                     var end_time = timestamp + 200;
                     dataRef.startAt(start_time)
-                        .endAt(end_time)
-                        .once('value', function(snap) {
-                            console.log("NEARBY: ");
-                            console.log(snap.val());
-                            // FILTER for CAMERA events only
-                });
-
-
-
+                    .endAt(end_time)
+                    .once('value', function(snap) {
+                        var events = snap.val();
+                        var cameraEvents = _.filter(_.values(events), function(event) {
+                            return event.type == "camera";
+                        });
+                        $("#related").empty();
+                        _.each(cameraEvents, function(event) {
+                            var carousel_item = '<article class><a href="' + event["image-url"] + '" class="image featured"><img src="' + event["image-url"] + '" alt="" /></a><header><h3>' + moment(event.time) + '</h3></header><p>' +  + '</p></article>';
+                            $(carousel_item).appendTo("#related").show();
+                        });
+                    });
                 }
-
-
-
             }
 
 
-          google.setOnLoadCallback(drawVisualization);
+          google.setOnLoadCallback(drawScatterVisualization);
         </script>
     </body>
 </html>
