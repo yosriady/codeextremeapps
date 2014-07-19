@@ -4,7 +4,7 @@
         ".write": "auth != null && auth.admin == true",
         "events": {
             ".read": "true",
-            ".write": "auth != null",
+            ".write": "true",
             "$event": {
                 ".validate": "newData.hasChildren(['easting', 'northing', 'lat', 'lng', 'time', 'type'])",
                 "type": {
