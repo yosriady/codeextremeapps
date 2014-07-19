@@ -1,6 +1,5 @@
 var RUM = RUM || {};
 RUM.Map = (function(window, document, $, _) {
-
     var OneMap = new GetOneMap('map','SM', {center:"28968.103,33560.969", level:3});
     var THEME_NAME = "Museum";
     var themeGraphicsLayer;
@@ -12,7 +11,7 @@ RUM.Map = (function(window, document, $, _) {
         OneMap.map.addLayer(themeGraphicsLayer);
 
         //resize info widnow
-        OneMap.map.infoWindow.resize(300, 200);
+        OneMap.map.infoWindow.resize(400, 300);
         OneMap.map.infoWindow.hide();
 
         //set graphic onclick event
