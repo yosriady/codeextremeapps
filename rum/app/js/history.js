@@ -1,35 +1,40 @@
 var RUM = RUM || {};
+
 RUM.History = (function(window, document, $, _) {
 
+    var DATA_URL = "https://rum.firebaseio.com/events";
+    var END_TIME = moment().unix();
+    var START_TIME = moment().subtract('hours', 2).unix();
 
-    function init(){
-        // TODO
-    }
-
-    function search(){
-        // TODO
-        // Gaoxiang, For filtering, see https://www.firebase.com/docs/queries.html
-        // And, https://www.firebase.com/blog/2013-10-01-queries-part-one.html
-        // Finally, https://www.firebase.com/blog/2014-01-02-queries-part-two.html
-    }
+    var dataRef = new window.Firebase(DATA_URL);
 
 
+    function init() {
+        window.google.load("visualization", "1", {packages:["corechart", "timeline"]});
+        window.google.setOnLoadCallback(drawChart);
+    };
+
+    function drawChart() {
+        dataRef.startAt(START_TIME)
+        .endAt(END_TIME)
+        .once('value', function(snap) {
+            var events = snap.val();
+            var timeLineContainer = document.getElementById('timeline');
+            var scatterContainer = document.getElementById('scatter');
+            var timeLineChart = new google.visualization.Timeline(timeLineContainer);
+            var scatterChart = new google.visualization.ScatterChart(scatterContainer);
+        });
+    };
 
     function getData(){
-        var DATA_URL = "https://rum.firebaseio.com/events";
-        var dataRef = new window.Firebase(DATA_URL);
-        var startTime = moment().subtract('2', 'hours').unix();
-        var endTime = moment().unix();
-        dataRef.startAt(startTime).endAt(endTime).once("value", function(snapshot) {
+        dataRef.startAt(START_TIME).endAt(END_TIME).once("value", function(snapshot) {
             console.log(snapshot.val());
         });
     }
 
     var HISTORY = {
-        init: init,
-        search: search,
-        getData: getData
-    }
+        init: init
+    };
     return HISTORY;
 
 })(window, document, window.jQuery, window._);

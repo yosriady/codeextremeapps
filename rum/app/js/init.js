@@ -381,5 +381,3 @@ RUM.Home.init();
 if (RUM.Map){
     RUM.Map.listen();
 }
-
-// TODO: RUM.Map.listen
