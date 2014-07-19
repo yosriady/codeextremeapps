@@ -12,21 +12,22 @@ RUM.History = (function(window, document, $, _) {
         .endAt(END_TIME)
         .once('value', function(snap) {
             var events = snap.val();
-            var timeLineContainer = document.getElementById('timeline');
+            var pieContainer = document.getElementById('pie');
             var scatterContainer = document.getElementById('scatter');
-            var timeLineChart = new google.visualization.Timeline(timeLineContainer);
+            var pieChart = new google.visualization.Timeline(pieContainer);
             var scatterChart = new google.visualization.ScatterChart(scatterContainer);
 
+            // scatter char
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'Time');
             data.addColumn('number', 'Motion');
             data.addColumn('number', 'Camera');
 
-            for (var i=0; i<json_data.length; i++) {
-                if (json_data.type == "motion"){
-                    data.addRow([json_data.time, 1, null])
-                } else if (json_data.type == "camera"){
-                    data.addRow([json_data.time, null, 1])
+            for (var i=0; i<events.length; i++) {
+                if (events.type == "motion"){
+                    data.addRow([events.time, 1, null])
+                } else if (events.type == "camera"){
+                    data.addRow([events.time, null, 1])
                 }
             }
             scatterChart.draw(data, {title: 'Number of Events over Time',
@@ -34,6 +35,12 @@ RUM.History = (function(window, document, $, _) {
                       vAxis: {title: "Number of Events", titleTextStyle: {color: "green"}},
                       hAxis: {title: "Time", titleTextStyle: {color: "green"}}}
             );
+
+            // pie chart
+            var typeCount = _.countBy(events, function(event) {
+                return event.type;
+            });
+
         });
     };
 
