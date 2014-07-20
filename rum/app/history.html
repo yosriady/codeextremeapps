@@ -78,7 +78,7 @@
 
             var DATA_URL = "https://rum.firebaseio.com/events";
             var END_TIME = moment().unix();
-            var START_TIME = moment().subtract('hours', 2).unix();
+            var START_TIME = moment().subtract('years', 1).unix();
             var dataRef = new window.Firebase(DATA_URL);
             var GRAPH_DATA = []
 
@@ -90,18 +90,19 @@
 
             function drawScatterVisualization(json_data) {
               var data = new google.visualization.DataTable();
-              data.addColumn('number', 'Time');
+              data.addColumn('datetime', 'Time');
               data.addColumn('number', 'Motion');
               data.addColumn('number', 'Camera');
 
                 var id;
                 for (var key in json_data) {
                     var point = json_data[key];
+                    var eventTime = new Date(point.time * 1000);
                     if (point.type){
                         if (point.type == "motion"){
-                            id = data.addRow([point.time, 1, null])
+                            id = data.addRow([eventTime, 1, null])
                         } else if (point.type == "camera"){
-                            id = data.addRow([point.time, null, 1.2])
+                            id = data.addRow([eventTime, null, 2])
                         }
                         GRAPH_DATA[id] = point;
                     }
